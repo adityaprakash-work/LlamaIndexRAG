@@ -1,0 +1,7 @@
+llama-index-embeddings-huggingface
+llama-index-llms-huggingface
+llama-index-vector-stores-weaviate
+llama-index
+llama-cpp-python
+accelerate
+bitsandbytes
