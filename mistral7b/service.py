@@ -1,6 +1,7 @@
 # ---DEPENDENCIES---------------------------------------------------------------
 import sys
 import torch
+import subprocess
 import logging
 from llama_index.core import (
     VectorStoreIndex,
@@ -64,6 +65,11 @@ def chat():
     response = chat_engine.chat(user_input)
     
     return jsonify({"response": response})
+
+@app.route('/ingest', methods=['POST'])
+def ingest():
+    subprocess.run(["python", "ingest.py"])
+    return jsonify({"response": "Ingested data."})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001)
