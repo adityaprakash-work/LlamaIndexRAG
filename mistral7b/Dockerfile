@@ -18,7 +18,8 @@ RUN curl -L https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolv
 RUN pip install torch
 RUN pip install transformers
 RUN pip install sentence-transformers
-RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install llama-cpp-python
+ENV RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 
+RUN pip install llama-cpp-python
 
 COPY exclude-files.txt ingest.py llama-index-req.txt service.py load_emb_model.py /app/
 
