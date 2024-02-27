@@ -23,7 +23,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 # ---weaviate client------------------------------------------------------------
-CLIENT = weaviate.Client("http://localhost:8080")
+CLIENT = weaviate.Client("http://localhost:8083")
 
 # ---constants------------------------------------------------------------------
 CACHE_FOLDER = "./model_cache"
@@ -49,12 +49,12 @@ vector_store = WeaviateVectorStore(CLIENT)
 index = VectorStoreIndex.from_vector_store(vector_store)
 logging.info("Indexing complete.")
 
-# ---chat engine----------------------------------------------------------------
-chat_engine = index.as_chat_engine()
+# ---query engine---------------------------------------------------------------
+query_engine = index.as_query_engine()
 
 # ---APP------------------------------------------------------------------------
 app = Flask(__name__)
-@app.route('/chat', methods=['POST'])
+@app.route('/query', methods=['POST'])
 def chat():
     data = request.get_json()
     user_input = data.get('user_input', '')
@@ -62,7 +62,7 @@ def chat():
     if user_input == ".exit":
         return jsonify({"response": "Exiting"})
     
-    response = chat_engine.chat(user_input)
+    response = query_engine.query(user_input)
     
     return jsonify({"response": response})
 

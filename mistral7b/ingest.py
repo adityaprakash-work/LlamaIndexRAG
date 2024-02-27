@@ -16,7 +16,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 # ---weaviate client------------------------------------------------------------
-CLIENT = weaviate.Client("http://localhost:8080")
+CLIENT = weaviate.Client("http://localhost:8083")
 
 # ---constants------------------------------------------------------------------
 DATA_DIR = "./data"
