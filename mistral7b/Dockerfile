@@ -19,17 +19,10 @@ RUN pip install torch
 RUN pip install transformers
 RUN pip install sentence-transformers
 RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 pip install llama-cpp-python
-
-# Install additional requirements
-COPY llama-index-req.txt /app/
 RUN pip install -r llama-index-req.txt
 
 # Run load_emb_model.py
 RUN python load_emb_model.py
-
-# Set up Flask app
-RUN pip install Flask
-COPY service.py chat_engine.py /app/
 
 # Expose the required port
 EXPOSE 5001
